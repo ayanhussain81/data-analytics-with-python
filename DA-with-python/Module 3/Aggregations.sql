@@ -2,7 +2,7 @@
 -- total 10 rows -- sum of rows will become 1 row 
 
 --An aggregate function collapses many rows into a single result.
-
+use BikeStores;
 select * from production.products;
 
 select count(*) as total_products from production.products;
@@ -64,6 +64,18 @@ from production.products
 --where model_year = 2016
 group by model_year
 having count(model_year) > 50;
+
+-- task -- find customers who have placed more than 2 orders 
+
+select 
+    c.customer_id, 
+    count(*) as order_count
+from
+    sales.customers c
+inner join sales.orders o
+    on c.customer_id = o.customer_id
+group by c.customer_id 
+having count(*) >= 2;
 
 
     -- customer_id, first_name, last_name, order_count, total_spent
